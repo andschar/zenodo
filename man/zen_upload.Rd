@@ -17,7 +17,7 @@ zen_upload(
   notes = NULL,
   access_right = "open",
   access_right_addition = NULL,
-  access_token = getOption("zenodo_token")
+  access_token = Sys.getenv("ZENODO_TOKEN")
 )
 }
 \arguments{

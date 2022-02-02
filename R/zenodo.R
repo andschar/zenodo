@@ -60,7 +60,7 @@ zen_upload = function(title = "My Title",
                       notes = NULL,
                       access_right = 'open',
                       access_right_addition = NULL,
-                      access_token = getOption('zenodo_token')) {
+                      access_token = Sys.getenv('ZENODO_TOKEN')) {
   # checks
   acces_token = checkmate::assert_character(access_token)
   upload_type = checkmate::assert_choice(
@@ -124,7 +124,7 @@ zen_upload = function(title = "My Title",
 zen_put = function(id,
                    file_name,
                    file_disk,
-                   access_token = getOption('zenodo_token')) {
+                   access_token = Sys.getenv('ZENODO_TOKEN')) {
   # checks
   checkmate::assert_numeric(id)
   checkmate::assert_character(file_name)

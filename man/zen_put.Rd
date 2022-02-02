@@ -4,7 +4,7 @@
 \alias{zen_put}
 \title{Function to put a file into a Zenodo Upload.}
 \usage{
-zen_put(id, file_name, file_disk, access_token = getOption("zenodo_token"))
+zen_put(id, file_name, file_disk, access_token = Sys.getenv("ZENODO_TOKEN"))
 }
 \arguments{
 \item{id}{An id of a Zenodo Upload.}
