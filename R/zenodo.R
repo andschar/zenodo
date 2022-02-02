@@ -1,4 +1,6 @@
-#' Create API path
+#' Create API path.
+#' 
+#' @author Andreas Scharmueller \email{andschar@@protonmail.com}
 #' 
 #' @noRd
 #' 
@@ -15,18 +17,18 @@ apipath = function(endpoint = NULL) {
   file.path(baseurl, endpoint_real)
 }
 
-#' Create a Zenodo Draft Upload.
+#' Create a Zenodo Draft deposit.
 #' 
 #' @author Andreas Scharmueller \email{andschar@@protonmail.com}
 #' 
-#' @description Creates a new draft upload to Zenodo. Files can be added with
+#' @description Creates a new draft deposit to Zenodo. Files can be added with
 #' the help of the zen_bucket() function. If you want to publish the
-#' upload, please do this manually on Zenodo. 
+#' deposit, please do this manually on Zenodo. 
 #' 
 #' @returns An API response as a list.
 #' 
-#' @param title Title of upload.
-#' @param upload_type Type of upload. Can be one of: 'publication', 'poster',
+#' @param title Title of deposit.
+#' @param upload_type Type of deposit. Can be one of: 'publication', 'poster',
 #' 'presentation', 'dataset', 'image', 'video', 'software', 'lesson', 'physicalobject',
 #' 'other'.
 #' @param publication_type Not yet documented.
@@ -76,6 +78,7 @@ zen_upload = function(title = "My Title",
     choices = c('open', 'embargoed', 'restricted', 'closed'),
     null.ok = FALSE
   )
+  checkmate::assert_character(access_token)
   # preparation
   creators = lapply(author, as.list)
   # list
@@ -108,15 +111,17 @@ zen_upload = function(title = "My Title",
   cont
 }
 
-#' Function to put a file into a Zenodo Upload.
+#' Function to put a file into a Zenodo deposit.
 #' 
-#' @description Use this function to put a file into a Zenodo upload.
+#' @author Andreas Scharmueller \email{andschar@@protonmail.com}
+#' 
+#' @description Use this function to put a file into a Zenodo deposit.
 #' 
 #' @returns An API response as a list.
 #' 
-#' @param id An id of a Zenodo Upload.
+#' @param id An id of a Zenodo deposit.
 #' @param file_name Name of the file which it should have on Zenodo.
-#' @param file_disk A file on disk tp upload.
+#' @param file_disk A file on disk to deposit.
 #' @param access_token An individual access_token.
 #' 
 #' @export
@@ -129,18 +134,17 @@ zen_put = function(id,
   checkmate::assert_numeric(id)
   checkmate::assert_character(file_name)
   checkmate::assert_file(file_disk)
-  # API GET request
+  checkmate::assert_character(access_token)
+  # GET info about deposit
   qurl1 = paste0(file.path(apipath('deposit'), id),  '?access_token=', access_token)
   req1 = httr::GET(qurl1)
   httr::warn_for_status(req1)
   cont1 = httr::content(req1)
-  # API PUT request
+  # PUT files to deposit
   bucket = cont1$links$bucket
   qurl2 = paste0(file.path(bucket, file_name), '?access_token=', access_token)
-  # API request
   req2 = httr::PUT(qurl2,
-                   body = httr::upload_file(file_disk),
-                   httr::verbose())
+                   body = httr::upload_file(file_disk))
   httr::warn_for_status(req2)
   cont2 = httr::content(req2)
   

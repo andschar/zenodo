@@ -2,16 +2,16 @@
 % Please edit documentation in R/zenodo.R
 \name{zen_put}
 \alias{zen_put}
-\title{Function to put a file into a Zenodo Upload.}
+\title{Function to put a file into a Zenodo deposit.}
 \usage{
 zen_put(id, file_name, file_disk, access_token = Sys.getenv("ZENODO_TOKEN"))
 }
 \arguments{
-\item{id}{An id of a Zenodo Upload.}
+\item{id}{An id of a Zenodo deposit.}
 
 \item{file_name}{Name of the file which it should have on Zenodo.}
 
-\item{file_disk}{A file on disk tp upload.}
+\item{file_disk}{A file on disk to deposit.}
 
 \item{access_token}{An individual access_token.}
 }
@@ -19,5 +19,8 @@ zen_put(id, file_name, file_disk, access_token = Sys.getenv("ZENODO_TOKEN"))
 An API response as a list.
 }
 \description{
-Use this function to put a file into a Zenodo upload.
+Use this function to put a file into a Zenodo deposit.
+}
+\author{
+Andreas Scharmueller \email{andschar@protonmail.com}
 }

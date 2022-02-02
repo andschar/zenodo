@@ -2,7 +2,7 @@
 % Please edit documentation in R/zenodo.R
 \name{zen_upload}
 \alias{zen_upload}
-\title{Create a Zenodo Draft Upload.}
+\title{Create a Zenodo Draft deposit.}
 \usage{
 zen_upload(
   title = "My Title",
@@ -21,9 +21,9 @@ zen_upload(
 )
 }
 \arguments{
-\item{title}{Title of upload.}
+\item{title}{Title of deposit.}
 
-\item{upload_type}{Type of upload. Can be one of: 'publication', 'poster',
+\item{upload_type}{Type of deposit. Can be one of: 'publication', 'poster',
 'presentation', 'dataset', 'image', 'video', 'software', 'lesson', 'physicalobject',
 'other'.}
 
@@ -58,9 +58,9 @@ Multiple entries are possible.}
 An API response as a list.
 }
 \description{
-Creates a new draft upload to Zenodo. Files can be added with
+Creates a new draft deposit to Zenodo. Files can be added with
 the help of the zen_bucket() function. If you want to publish the
-upload, please do this manually on Zenodo.
+deposit, please do this manually on Zenodo.
 }
 \author{
 Andreas Scharmueller \email{andschar@protonmail.com}
