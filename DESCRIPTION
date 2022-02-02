@@ -1,0 +1,25 @@
+Package: zenodo
+Version: 0.0.9001
+Date: 2022-02-02
+Title: An R package that interfaces the Zenodo API
+Authors@R: c(
+    person("Andreas", "Scharmüller",
+            role = c("aut", "cre"),
+            email = "andschar@protonmail.com",
+            comment = c(ORCID = "0000-0002-9290-3965"))
+    )
+Maintainer: Andreas Scharmüller <andschar@protonmail.com>
+Description: The R package allows users to interact with the Zenodo API.
+    Users can create a Zenodo Upload, upload data and request information about
+    existing uploads.
+Depends:
+    R (>= 3.5.0)
+Imports:
+    checkmate,    
+    httr,
+    jsonlite
+License: MIT + file LICENSE
+URL: https://github.com/andschar/zenodo
+BugReports: https://github.com/andschar/zenodo/issues
+RoxygenNote: 7.1.1
+Encoding: UTF-8
