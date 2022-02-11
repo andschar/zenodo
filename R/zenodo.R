@@ -150,3 +150,52 @@ zen_put = function(id,
   
   cont2
 }
+
+#' Function to download files from a Zenodo deposit.
+#' 
+#' @author Andreas Scharmueller \email{andschar@@protonmail.com}
+#' 
+#' @description Use this function to download files from a Zenodo deposit.
+#' 
+#' @returns An API response as a list.
+#' 
+#' @param id An id of a Zenodo deposit.
+#' @param dir_disk Directory on disk where the Zenodo files should be put.
+#' @param access_token An individual access_token.
+#' 
+#' @export
+#' 
+#' @examples 
+#' \dontrun{
+#' # Function needs a personal API key.
+#' id = 5947275
+#' dir_disk = '~/Desktop/look'
+#' zen_download(id, dir_disk)
+#' }
+#' 
+zen_download = function(id,
+                        dir_disk,
+                        access_token = Sys.getenv('ZENODO_TOKEN')) {
+  # checks
+  checkmate::assert_numeric(id)
+  checkmate::assert_directory(dir_disk)
+  checkmate::assert_character(access_token)
+  # GET info about deposit
+  qurl = paste0(file.path(apipath('deposit'), id),  '?access_token=', access_token)
+  req = httr::GET(qurl)
+  httr::warn_for_status(req)
+  cont = httr::content(req)
+  # URL files
+  fl_todo = sapply(lapply(cont$files, `[[`, 'links'), `[[`, 'download')
+  # DOWNLOAD files
+  for (i in fl_todo) {
+    fl = basename(i)
+    message('Downloading: ', fl)
+    qurl2 = paste0(i, '?access_token=', access_token)
+    destfile = file.path(dir_disk, fl)
+    req = httr::GET(qurl2,
+                    httr::write_disk(destfile,
+                                     overwrite = TRUE))
+    httr::warn_for_status(req)
+  }
+}

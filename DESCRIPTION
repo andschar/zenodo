@@ -1,6 +1,6 @@
 Package: zenodo
-Version: 0.0.2
-Date: 2022-02-02
+Version: 0.0.3
+Date: 2022-02-11
 Title: An R package that interfaces the Zenodo API
 Authors@R: c(
     person("Andreas", "Scharmüller",
